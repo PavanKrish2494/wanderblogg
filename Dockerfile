@@ -30,6 +30,7 @@ COPY . .
 
 # Entrypoint script
 COPY --chmod=755 entrypoint.sh /entrypoint.sh
+RUN sed -i 's/\r$//' /entrypoint.sh
 
 EXPOSE 5000
 

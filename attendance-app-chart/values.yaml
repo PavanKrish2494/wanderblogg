@@ -25,6 +25,7 @@ imagePullSecrets:
 
 
 service:
+  name: attendance-service  
   type: LoadBalancer
   port: 5000
   labels:
@@ -50,8 +51,8 @@ autoscaling:
 
 config:
   name: attendance-app-config
-  DB_HOST: "attendance-db.cluster-123456789012.ap-south-1.rds.amazonaws.com"
-  DB_NAME: "postgres"
+  DB_HOST: attendance-db.cluster-123456789012.ap-south-1.rds.amazonaws.com
+  DB_NAME: postgres
   DB_PORT: "5432"
 
 

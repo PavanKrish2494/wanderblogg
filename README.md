@@ -150,8 +150,8 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 - Create the sealed secrets using command below for pulling the images from private docker registry
 ```
 kubectl create secret docker-registry docker-creds \
-  --docker-username=gauris17 \
-  --docker-password=YourPassword \
+  --docker-username=krishdocker94 \
+  --docker-password=yourpassword \
   --namespace attendance-app \
   --dry-run=client -o yaml | \
 kubeseal \

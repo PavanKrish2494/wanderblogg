@@ -1,0 +1,66 @@
+# Default values for attendance-app-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace: attendance-app
+
+deployment:
+  name: attandance-deployment
+  labels:
+    app: attandance-app
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+replicaCount: 2
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: krishdocker94/wanderblogg
+  # This sets the pull policy for images.
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+# This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets:
+  - name: docker-creds
+
+
+service:
+  type: LoadBalancer
+  port: 5000
+  labels:
+    app: attandance-app
+
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+
+# This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
+autoscaling:
+  enabled: true
+  name: attendance-app-hpa
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+config:
+  name: attendance-app-config
+  DB_HOST: "attendance-db.cluster-123456789012.ap-south-1.rds.amazonaws.com"
+  DB_NAME: "postgres"
+  DB_PORT: "5432"
+
+
+docker:
+  name: dockercreds
+  dockerconfigjson: AgAIqCaICINdzmr4iF4RzDcceP0OXUzEDSa5heuazMqGqO54wfzT1uylivrZnVL1tiOH+ld5+q+Doo1IISXnMpjeU0nnQVuw0GMY3LYylK2nsFOnUx0ulbzq/NcCh6W9fQMphYXwLHW7D6P/JfL44bE2KvEaBp3yZF06lvPqPIUWCvzfdrFf9XcNtfD8llv680KORa239qHXGOOoIIImyrICKHDXFP6wSvLt4lvkJ0cUbxMuoCFqipi9cap00PQOeNOouo7mj5bdrl8xeyFNUsx/LBQksUWeIN/o/cVF9RAkRu9cjP2PuYbs59FzAb3hk/6PcgX+6YmrmqiGvxCepTJZERwjIgHL+MQ9+sf/t/tDkT1JqyHGvqIp77wJcEqZAVgzIWWXDFxXZbKpcm0yvuqLfiykySDas53Q9cOJDO9iMW/dqveSaoai3gW2HDOwr7JWQaPz2wF1cYGUZvTjBqkiHXoef7S0pxu4fjEvbV5teWUEdyJN36m5e1DSDakv4H591QQfCnC4ZAamW4YNY6cJegHWv0rDaYlrtz+2dDyWu/rWASM4LBJZcV5nc7E3HArqz+Np2J+levBkYwJtx9+C0Gwf/XfOHipyLFBC8f4E+sh03GgNkKVuqNT8fuvBuhK1yCny3PLlYAbcvVWvm5oezeYQutYKC2cedTuIRmQGxhl0Ot/PYIf7xGjfiLOHG9A1uuu0R7JluQUq5Nmkus7Ho3qBjXdya4bUKhJpHwKSNEaNCThGLtMEHGolSfnz/Yh4o0cpQnPrrGnLzpCXhbZTnOxGmAGWuMpW8wLFhEfReDmra8P3HJt6H8DQpyD7HmydvpTO4amTfNbpcbT9hg8o4Tq2kv45iP4aDeLgJVHv9xTdoRPC1qy4F4RBk43B
+
+
+db:
+  name: dbsecrets
+  DB_USER: AgAqBBRPn9s++XPFeLKalKrh3kSOYrIMA5F6ZylJ3uaE7qKGKWo5yjbVSr1w2u2cQbiQ3d5TPtVr7Jm1TIKyfzQx5QzGH+VSeYaYvelVfut4uklMsz3Q0BSKG/DXKZtFnVuKkrWeNA9dsKG8N+gJDBIjER98lY32jPedQf6EMQtHE5GbmghLHjWLUzMT0BoZX393qqliqj+Ph2UKs92QH+9oKG6zy/EaBN3GQgEXHBAMfD4DndAQKUv58mDBb60C0/8/O+Bg+fTMnRE97bwUrcn3cx1gKki0M3xZRLIFix4mdJaRY2qQtR35U/Nkvd9UOHvYsDNBeJ6p3+4+9ry0/BeZrjf05SJl9TnAaPG9FvtiOIqhr0QHrstepMJa5MKYlsE4o2xZb5v55M+MG3Ua+wdBAy9k+b5p+te8s7iSlgJLh6T2945aO9ceu8Wdn85uwBSAGT3Phqf//Dk8gatDbyHIEf9kvENw4h0gc8dY0HJubZqgnSnAfKVLzDbZhU+pteCE9oOPESqmQYn6ojB9L6wcfgovHp1dL3sHxTI50aqY9Rkvf2qyxcsrbnHHI1rpi0DBQLex4OyYjqv67/FRPHc1B/xkbg6Xy0eq4Cku1r7W559IhTudrvPNvoU1T52+F7CqBx306gcLpeiYxNleTS358qaTFg3/WZ7/h4Icof3K5EVETGsLzXU7hJ9CjUr7zmwFAGZF941D2g==
+  DB_PASSWORD: AgCYJIn0FT8I3xs4nDNVgHe4wmbmjoy816IBIYeJ4W1FPdJLF7S4MeLZOM2QLrszBQfiCqQ6Sr0me6pkZM9fF9zeA0cbg+U752JfU01npqtNBoszAjKnVG58ly6QZH29E9pZNFm136YCINlSQ18ef/c99LLEdlMnoOHHUUfvy/OnS29UXxmqgvH0v0J12JI7JM8aM7aKMhK7YeVOqk8LLu6xlz1d6/JmZpz2cBkxPTcSBfXnPQSiXntKkiPWj7qwpv+tY37QUTeqHeSeGI/OpzZ999eQXJ38ku9vbmVHu1coSqUOr/97Hap5sc2a4pE5ZPtgkz7lk9ieft81SsRyLJHPYc+l6nVGByMWJ7yZ9LxTt6RNxWCWu02HVPlCKxDuZIpdL5JJMiRoyqhURYf/UFB/TPQSUff+mQB3Jg8j+GPomtbLTSrLoxYPjhD/92qf/hJvAW0QI/gjFL/18qCozjkl7BXhhYmIfEDmFr/R71YaTngQekS2g6s5b8PTkB2977yjTetevDz539V7gTgFZa7GbR5yIIzYI6PEXrfowXxEPgJpx03gEXGk+RAe2cvzHniCbTpc8APu9kXCi5oan9o9Dwp2G7y7m9AOc3TB/CrvN/y5GLpb0qO43r0GjlSarVoeud/zoGzj9xUsHakZ1uiJG8sSEahOH2MskYtjGizWG0hfEAC8892CQ/vVVmpR2RuiYPMjrGTEDWBhr9mAxqi0qt+f

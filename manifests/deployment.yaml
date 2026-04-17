@@ -1,0 +1,29 @@
+api_version: apps/v1
+kind: Deployment 
+metadata:
+  name: attandance-deployment
+  namespace: attendance-app
+  labels:
+    app: attandance-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: attandance-app
+  template:
+    metadata:
+      labels:
+        app: attandance-app
+    spec:
+      containers:
+      - name: attandance-app-container
+        image: krishdocker94/wanderblogg:latest
+        ports:
+        - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: attendance-app-config
+        - secretRef:
+            name: db-secrets
+      imagePullSecrets:
+      - name: docker-creds

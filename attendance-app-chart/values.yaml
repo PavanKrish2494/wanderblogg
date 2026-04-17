@@ -16,8 +16,8 @@ image:
   repository: krishdocker94/wanderblogg
   # This sets the pull policy for images.
   pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  # Override this tag with a fixed version after you push the corrected image.
+  tag: "fix1"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
 imagePullSecrets: []

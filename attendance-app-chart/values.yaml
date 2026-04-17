@@ -20,9 +20,7 @@ image:
   tag: "latest"
 
 # This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-imagePullSecrets:
-  - name: docker-creds
-
+imagePullSecrets: []
 
 service:
   name: attendance-service  
@@ -58,7 +56,10 @@ config:
 
 docker:
   name: dockercreds
-  dockerconfigjson: AgAIqCaICINdzmr4iF4RzDcceP0OXUzEDSa5heuazMqGqO54wfzT1uylivrZnVL1tiOH+ld5+q+Doo1IISXnMpjeU0nnQVuw0GMY3LYylK2nsFOnUx0ulbzq/NcCh6W9fQMphYXwLHW7D6P/JfL44bE2KvEaBp3yZF06lvPqPIUWCvzfdrFf9XcNtfD8llv680KORa239qHXGOOoIIImyrICKHDXFP6wSvLt4lvkJ0cUbxMuoCFqipi9cap00PQOeNOouo7mj5bdrl8xeyFNUsx/LBQksUWeIN/o/cVF9RAkRu9cjP2PuYbs59FzAb3hk/6PcgX+6YmrmqiGvxCepTJZERwjIgHL+MQ9+sf/t/tDkT1JqyHGvqIp77wJcEqZAVgzIWWXDFxXZbKpcm0yvuqLfiykySDas53Q9cOJDO9iMW/dqveSaoai3gW2HDOwr7JWQaPz2wF1cYGUZvTjBqkiHXoef7S0pxu4fjEvbV5teWUEdyJN36m5e1DSDakv4H591QQfCnC4ZAamW4YNY6cJegHWv0rDaYlrtz+2dDyWu/rWASM4LBJZcV5nc7E3HArqz+Np2J+levBkYwJtx9+C0Gwf/XfOHipyLFBC8f4E+sh03GgNkKVuqNT8fuvBuhK1yCny3PLlYAbcvVWvm5oezeYQutYKC2cedTuIRmQGxhl0Ot/PYIf7xGjfiLOHG9A1uuu0R7JluQUq5Nmkus7Ho3qBjXdya4bUKhJpHwKSNEaNCThGLtMEHGolSfnz/Yh4o0cpQnPrrGnLzpCXhbZTnOxGmAGWuMpW8wLFhEfReDmra8P3HJt6H8DQpyD7HmydvpTO4amTfNbpcbT9hg8o4Tq2kv45iP4aDeLgJVHv9xTdoRPC1qy4F4RBk43B
+  # dockerconfigjson must be the raw JSON content of a Docker config file, for example:
+  # {"auths":{"https://index.docker.io/v1/":{"auth":"<base64-username-password>"}}}
+  # Leave empty if you do not need an image pull secret.
+  dockerconfigjson: ""
 
 
 db:
